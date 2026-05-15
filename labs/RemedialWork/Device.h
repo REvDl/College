@@ -138,12 +138,12 @@ public:
 
 
     string getTabletCategory() {
-        if (screenSize < 9.0) return "Компактний планшет (e-reader/mobi)";
-        if (screenSize >= 9.0 && screenSize <= 12.0) return "Стандартний мультимедійний планшет";
+        if (screenSize < 9.0) return "Compact tablet (e-reader/mobi)";
+        if (screenSize >= 9.0 && screenSize <= 12.0) return "Standard multimedia tablet";
         if (screenSize > 12.0 && (os == "Windows 11" || hasStylus)) {
-            return "Графічний планшет / Професійне робоче місце";
+            return "Graphics tablet / Professional workstation";
         }
-        return "Великий домашній планшет";
+        return "Large home tablet";
     }
 
 
