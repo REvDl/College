@@ -2,6 +2,7 @@
 #include "Smartphone.h"
 #include "Laptop.h"
 #include "Tablet.h"
+#include <limits>
 using namespace std;
 
 
@@ -64,10 +65,11 @@ int main() {
                 break;
                 
             case 0:
-                cout << "Exit. Bye";
+                cout << "Exit. Bye\n";
+                break;
 
             default:
-                cout << "Invalid menu item. Please try again";
+                cout << "Invalid menu item. Please try again\n";
                 break;
 
 
