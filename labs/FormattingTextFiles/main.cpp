@@ -47,7 +47,48 @@ void saveToFile(std::string_view filename, const std::vector<double> &data,
   std::cout << "Max - " << max << "     " << "Min - " << min << '\n';
 }
 
+std::vector<double> solution_the_equation(double a, double b, double c) {
+  double D = b * b - 4 * a * c;
+  std::vector<double> result;
+  result.reserve(2);
+  if (D < 0) {
+    std::cerr << "There are no roots (the discriminant is negative)"
+              << std::endl;
+  } else {
+    double x1 = (-b + std::sqrt(D)) / (2 * a);
+    double x2 = (-b - std::sqrt(D)) / (2 * a);
+    result.push_back(x1);
+    result.push_back(x2);
+  }
+  return result;
+}
+
+void equation_to_file(std::string_view filename,
+                      std::string_view file_to_write) {
+  std::ifstream file(filename.data());
+  std::ofstream file_write(file_to_write.data());
+  if (!file.is_open() || !file_write.is_open()) {
+    std::cerr << "File opening error" << std::endl;
+    return;
+  }
+  double a, b, c;
+  while (file >> a >> b >> c) {
+    std::vector<double> result = solution_the_equation(a, b, c);
+    file_write << a << " " << b << " " << c << " -> ";
+    if (result.empty()) {
+      file_write << "No real roots";
+    } else if (result.size() == 1) {
+      file_write << "x = " << result[0];
+    } else if (result.size() == 2) {
+      file_write << "x1 = " << result[0] << " x2 = " << result[1];
+    }
+    file_write << '\n';
+  }
+}
+
 int main() {
   std::vector<double> data = identity_trig_function(300.0, 600.0, 20.0);
   saveToFile("result_file.txt", data, 300.0, 20.0);
+  equation_to_file("data_equation.txt", "result_equation.txt");
+  return 0;
 }
