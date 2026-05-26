@@ -65,8 +65,8 @@ void sorted_by_pension(std::string_view filename) {
   file.close();
 }
 
-int average_year_departament(std::string_view filename,
-                             std::string departament_name) {
+double average_experience_departament(std::string_view filename,
+                                      std::string departament_name) {
   std::ifstream file{std::string(filename)};
   if (!file.is_open()) {
     throw std::runtime_error("Error opening file");
@@ -81,8 +81,37 @@ int average_year_departament(std::string_view filename,
       count_employe += 1;
     }
   }
+  file.close();
   if (all_year > 0 && count_employe > 0) {
-    return all_year / count_employe;
+    return static_cast<double>(all_year) / count_employe;
   }
+  return 0;
+}
+
+int main() {
+  std::vector<Employee> list = {
+      {"Shevchenko", "IT Departament", 1965, 20, "Senior Backend", 120000},
+      {"Petrenko", "Marketing", 1990, 5, "Manager", 45000},
+      {"Ivanenko", "IT Departament", 1960, 35, "Rector", 150000}};
+
+  const std::string filename = "database.txt";
+
+  try {
+    insert_employees_file(filename, list);
+    std::cout << "File has been successfully created and filled!\n\n";
+
+    std::cout << "--- Workers of retirement age ---\n";
+    sorted_by_pension(filename);
+    std::cout << "-------------------------------------\n\n";
+
+    std::string target_dep = "IT Departament";
+    double avg_exp = average_experience_departament(filename, target_dep);
+    std::cout << "Average experience \"" << target_dep << "\": " << avg_exp
+              << " year.\n";
+
+  } catch (const std::exception &e) {
+    std::cerr << "Error: " << e.what() << '\n';
+  }
+
   return 0;
 }
