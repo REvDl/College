@@ -1,0 +1,4 @@
+Petrov 22 90
+Ivanov 10 85
+Sydorov 7 64
+Smirnov 13 73
