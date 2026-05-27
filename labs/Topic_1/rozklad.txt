@@ -1,0 +1,4 @@
+Ranok_Z_Ukrainoyu 6 0 9 30
+Televisyt 12 15 13 0
+Kino_Na_Vechir 15 0 17 45
+TSN_Novyny 19 30 20 15
