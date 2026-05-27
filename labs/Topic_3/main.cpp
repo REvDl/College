@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// Проста структура спортсмена
 struct Sportsman {
     string prizvyshe;
     int nomer;
