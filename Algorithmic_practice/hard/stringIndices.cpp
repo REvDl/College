@@ -61,6 +61,13 @@ struct TrieNode {
   int best_index;
 
   TrieNode(int best_index = -1) { this->best_index = best_index; }
+  ~TrieNode() {
+    for (int i = 0; i < 26; ++i) {
+      if (node[i] != nullptr) {
+        delete node[i];
+      }
+    }
+  }
 };
 
 class Solution {
