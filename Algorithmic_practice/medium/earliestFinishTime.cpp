@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Solution {
+class Solution_yesterday {
 public:
   int earliestFinishTime(vector<int> &landStartTime, vector<int> &landDuration,
                          vector<int> &waterStartTime,
@@ -27,5 +27,36 @@ public:
       finish_land = min(start_land + landDuration[j], finish_land);
     }
     return min(finish_water, finish_land);
+  }
+};
+
+class Solution {
+public:
+  int get_earliest_end(vector<int> &StartTime, vector<int> &Duration) {
+    int end = INT_MAX;
+    for (int i = 0; i < StartTime.size(); ++i) {
+      end = min(end, StartTime[i] + Duration[i]);
+    }
+    return end;
+  };
+
+  int solve_one_way(vector<int> &FirstStartTime, vector<int> &FirstDuration,
+                    vector<int> &SecondStartTime, vector<int> &SecondDuration) {
+    int min_end = get_earliest_end(FirstStartTime, FirstDuration);
+    int earliest_end = INT_MAX;
+    for (size_t i = 0; i < SecondStartTime.size(); ++i) {
+      int start = max(min_end, SecondStartTime[i]);
+      earliest_end = min(earliest_end, start + SecondDuration[i]);
+    }
+    return earliest_end;
+  }
+
+  int earliestFinishTime(vector<int> &landStartTime, vector<int> &landDuration,
+                         vector<int> &waterStartTime,
+                         vector<int> &waterDuration) {
+    return min(solve_one_way(landStartTime, landDuration, waterStartTime,
+                             waterDuration),
+               solve_one_way(waterStartTime, waterDuration, landStartTime,
+                             landDuration));
   }
 };
